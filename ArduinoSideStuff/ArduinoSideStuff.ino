@@ -82,19 +82,19 @@ void loop() {
 
     //Read red
     if(currentChnl == 0) {
-      r = Serial.read();
+      r = Serial.read() * 2;
       currentChnl++;
     }
 
     //Read green
     else if(currentChnl == 1) {
-      g = Serial.read();
+      g = Serial.read() * 2;
       currentChnl++;
     }
 
     //Read blue
     else if(currentChnl == 2) {
-      b = Serial.read();
+      b = Serial.read() * 2;
       currentChnl = 0;
 
       //Since the blue pixel was just read, all of the colors channels are now set,

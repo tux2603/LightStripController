@@ -35,13 +35,19 @@ def arrayFromFile(file):
     print(im.width, im.height)
     lines = []
     for row in range(im.height):
-        singleLineData = []
+        singleLineData = ''
         for col in range(im.width):
             pixelColor = im.getpixel((col, row))
-            singleLineData.append(pixelColor[0])
-            singleLineData.append(pixelColor[1])
-            singleLineData.append(pixelColor[2])
+
+            #singleLineData += ''
+            #singleLineData += '@'
+            #singleLineData += 'y'
+            #wheee!
+            singleLineData += str(chr(min(pixelColor[0]//2, 127)))
+            singleLineData += str(chr(min(pixelColor[1]//2, 127)))
+            singleLineData += str(chr(min(pixelColor[2]//2, 127)))
         lines.append(singleLineData)
+        print(singleLineData)
     os.remove(file)
     im.save('imageQueue/currentImage.png')
     return lines
@@ -81,7 +87,6 @@ if __name__ == '__main__':
                     print('Running new image...')
                     break
                 print('Col loop...')
-                for col in data[row]:
-                    ser.write(bytes(chr(col//2), 'ascii'))
+                ser.write(data[row].encode('ascii'))
                 time.sleep(0.02)
         ser.close()
