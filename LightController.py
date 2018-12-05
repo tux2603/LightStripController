@@ -87,6 +87,6 @@ if __name__ == '__main__':
                     print('Running new image...')
                     break
                 print('Col loop...')
-                ser.write(data[row])
+                ser.write(data[row].encode('ascii'))
                 time.sleep(0.02)
         ser.close()
