@@ -80,42 +80,34 @@ void loop() {
   // read it into the corresponding channel color variable
   if(Serial.available() != 0) {
 
-    byte in = Serial.read();
-
-    if(in <= 127) {
-      //Read red
-      if(currentChnl == 0) {
-        r = Serial.read();
-        currentChnl++;
-      }
-
-      //Read green
-      else if(currentChnl == 1) {
-        g = Serial.read();
-        currentChnl++;
-      }
-
-      //Read blue
-      else if(currentChnl == 2) {
-        b = Serial.read();
-        currentChnl = 0;
-
-        //Since the blue pixel was just read, all of the colors channels are now set,
-        //  so push them to the current pixel on the LED strips
-        outputColor(currentPxl, r, g, b);
-
-        //go to the next pixel
-        currentPxl++;
-        currentPxl%=PIXELS_PER_STRIP;
-      }
+    //Read red
+    if(currentChnl == 0) {
+      r = Serial.read();
+      currentChnl++;
     }
 
-    else {
-      if(in > 127) {
-        delay(1000);
+    //Read green
+    else if(currentChnl == 1) {
+      g = Serial.read();
+      currentChnl++;
+    }
+
+    //Read blue
+    else if(currentChnl == 2) {
+      b = Serial.read();
+      currentChnl = 0;
+
+      //Since the blue pixel was just read, all of the colors channels are now set,
+      //  so push them to the current pixel on the LED strips
+      outputColor(currentPxl, r, g, b);
+
+      //go to the next pixel
+      currentPxl++;
+
+      //If we have reached the end of the strips, wrap around to the beginning
+      if(currentPxl >= PIXELS_PER_STRIP * 2) {
         currentPxl = 0;
         updateStrips();
-        Serial.write((byte)255);
       }
     }
   }
