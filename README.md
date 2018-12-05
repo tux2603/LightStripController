@@ -1,1 +1,1 @@
-LightStripController
+lightStrip
