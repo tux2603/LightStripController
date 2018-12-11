@@ -88,7 +88,7 @@ if __name__ == '__main__':
     displayHeight = 320
     thumbWidth = 2*displayWidth//5
     thumbHeight = displayHeight//2
-    DEBUG = True
+    DEBUG = False
 
     window = None
     if DEBUG:
