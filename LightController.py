@@ -70,8 +70,6 @@ if __name__ == '__main__':
                     count = 0
                 if len(images) > 1:
                     print('Found new image')
-                    ser.close()
-                    print('Serial port has been closed')
                     images.sort()
                     print('Images sorted')
                     for i in range(len(images)):
@@ -80,8 +78,11 @@ if __name__ == '__main__':
                             break
                     print('Old image removed')
                     print('Loading ' + images[0])
+                    time.sleep(2)
                     data = arrayFromFile('imageQueue/' + images[0])
                     print('Data array for new image collected')
+                    ser.close()
+                    print('Serial port has been closed')
                     connectToArduino()
                     time.sleep(2)
                     print('Running new image...')
