@@ -1,6 +1,7 @@
-#!/bin/bash
+#!/usr/bin/perl
 
-rm -r imageQueue
-git pull origin master
-mkdir imageQueue
-cp images/0off.png imageQueue/currentImage.png
+$branch = (shift or 'master');
+`rm -r imageQueue`;
+`git pull origin $branch`;
+`mkdir imageQueue`;
+`cp images/0off.png imageQueue/currentImage.png`;
