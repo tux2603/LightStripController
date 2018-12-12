@@ -2,6 +2,8 @@
 
 $branch = (shift or 'master');
 `rm -r imageQueue`;
+`rm imagedata`;
 `git pull origin $branch`;
 `mkdir imageQueue`;
 `cp images/0off.png imageQueue/currentImage.png`;
+`mkfifo imageData`;
