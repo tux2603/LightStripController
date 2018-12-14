@@ -1,0 +1,44 @@
+#!/usr/bin/perl
+use Getopt::Std;
+
+my %opts = (
+  'r' => 'r',
+  'g' => 'g',
+  'b' => 'b'
+);
+
+getopts("r:g:b:", \%opts);
+
+@commands = qw/CLEAR LOOP ALOOP ENDLOOP/;
+
+sub min ($$) { $_[$_[0] > $_[1]] }
+
+while(chomp($line = <>)) {
+  if( grep {$_ eq $line} @commands ) {
+    print "$line\n";
+    next;
+  }
+
+  @rawData = ( $line =~ /../g );
+  $filteredData = "";
+
+  for ($i = 0; $i < @rawData; $i += 3) {
+    my $r = sprintf "%02X", hex($rawData[$i]);
+    my $g = sprintf "%02X", hex($rawData[$i+1]);
+    my $b = sprintf "%02X", hex($rawData[$i+2]);
+    #print "$r$g$b";
+    $filteredData .= $r if %opts{'r'} eq 'r';
+    $filteredData .= $g if %opts{'r'} eq 'g';
+    $filteredData .= $b if %opts{'r'} eq 'b';
+
+    $filteredData .= $r if %opts{'g'} eq 'r';
+    $filteredData .= $g if %opts{'g'} eq 'g';
+    $filteredData .= $b if %opts{'g'} eq 'b';
+
+    $filteredData .= $r if %opts{'b'} eq 'r';
+    $filteredData .= $g if %opts{'b'} eq 'g';
+    $filteredData .= $b if %opts{'b'} eq 'b';
+  }
+
+  print "$filteredData\n";
+}

@@ -1,0 +1,9 @@
+#!/usr/bin/perl
+
+while(1) {
+	$str = "";
+	for(1..100 * 3) {
+		$str .= sprintf("%02X", rand 255);
+	}
+	print "$str\n";
+}

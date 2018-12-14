@@ -1,0 +1,22 @@
+#!/usr/bin/perl
+
+$brightness = (shift or 255);
+@commands = qw/CLEAR LOOP ALOOP ENDLOOP/;
+
+sub min ($$) { $_[$_[0] > $_[1]] }
+
+while(chomp($line = <>)) {
+  if( grep {$_ eq $line} @commands ) {
+    print "$line\n";
+    next;
+  }
+
+  @rawData = ( $line =~ /../g );
+  $filteredData = "";
+
+  for $byte (@rawData) {
+    $filteredData .= sprintf "%02X", min(255, hex($byte) * $brightness / 255);
+  }
+
+  print "$filteredData\n";
+}
