@@ -14,7 +14,7 @@
 #include <FastLED.h>
 
 // How many leds in your strip?
-#define NUM_LEDS 150
+#define PIXELS_PER_STRIP 150
 
 // For led chips like Neopixels, which have a data line, ground, and power, you just
 // need to define DATA_PIN.  For led chipsets that are SPI based (four wires - data, clock,
@@ -23,8 +23,8 @@
 #define RIGHT_DATA_PIN 3
 
 // Define the array of leds
-CRGB left_leds[NUM_LEDS];
-CRGB right_leds[NUM_LEDS];
+CRGB left_leds[PIXELS_PER_STRIP];
+CRGB right_leds[PIXELS_PER_STRIP];
 
 short currentPxl = 0;
 uint8_t currentChnl = 0,
@@ -33,8 +33,8 @@ uint8_t currentChnl = 0,
     b = 0;
 
 void setup() {
-  	  FastLED.addLeds<NEOPIXEL, LEFT_DATA_PIN>(left_leds, NUM_LEDS);
-  	  FastLED.addLeds<NEOPIXEL, RIGHT_DATA_PIN>(right_leds, NUM_LEDS);
+  	  FastLED.addLeds<NEOPIXEL, LEFT_DATA_PIN>(left_leds, PIXELS_PER_STRIP);
+  	  FastLED.addLeds<NEOPIXEL, RIGHT_DATA_PIN>(right_leds, PIXELS_PER_STRIP);
       Serial.begin(115200);
 }
 
@@ -71,13 +71,13 @@ void loop() {
 
       //Since the blue pixel was just read, all of the colors channels are now set,
       //  so push them to the current pixel on the LED strips
-      if (pxl < PIXELS_PER_STRIP) {
-        left_leds[PIXELS_PER_STRIP - (pxl + 1)] = CRGB(r, g, b);
+      if (currentPxl < PIXELS_PER_STRIP) {
+        left_leds[PIXELS_PER_STRIP - (currentPxl + 1)] = CRGB(r, g, b);
       }
 
       //If writing to the right strip, the pixel indexes are offset, so correct for that
       else {
-        right[pxl - PIXELS_PER_STRIP] = CRGB(r, g, b);
+        right_leds[currentPxl - PIXELS_PER_STRIP] = CRGB(r, g, b);
       }
 
       //go to the next pixel
