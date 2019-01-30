@@ -5,5 +5,7 @@ if __name__ == '__main__':
     stream.connectToArduino()
     stream.begin()
 
-    for i in range(1000):
-        stream.displayLine(stream.getNextLine())
+    while not stream.isDone():
+        line = stream.getNextLine()
+        print(line)
+        stream.displayLine(line))

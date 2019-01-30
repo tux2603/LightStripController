@@ -2,7 +2,7 @@
 
 while(1) {
 	$str = "";
-	for(1..100 * 3) {
+	for(1..300 * 6) {
 		$str .= sprintf("%02X", rand 255);
 	}
 	print "$str\n";
