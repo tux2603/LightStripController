@@ -8,4 +8,4 @@ if __name__ == '__main__':
     while not stream.isDone():
         line = stream.getNextLine()
         print(line)
-        stream.displayLine(line))
+        stream.displayLine(line)
