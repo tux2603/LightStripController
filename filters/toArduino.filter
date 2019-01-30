@@ -1,0 +1,9 @@
+import imagestream
+
+if __name__ == '__main__':
+    stream = imagestream.ImageStream(maxFPS=-1)
+    stream.connectToArduino()
+    stream.begin()
+
+    for i in range(1000):
+        stream.displayLine(stream.getNextLine())

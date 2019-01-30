@@ -1,11 +1,11 @@
-#!/usr/bin/python
 import threading
 import numpy as np
 import time
+import serial
 
 
 class ImageStream:
-	def __init__(self, inputStream = input, outputStream = print, maxFPS = 1200):
+	def __init__(self, inputStream=input, outputStream=print, maxFPS=1200):
 		# Store the location of the iput and output streams
 		self._inputStream = inputStream
 		self._outputStream = outputStream
@@ -22,20 +22,49 @@ class ImageStream:
 		# Variable to store whether the input stream has ended
 		self._isStreamEnded = False
 
+		# Set a default maximum frame rate
+		self.maxFPS = maxFPS
+
+		# Connected to the Arduino?
+		self._isConnected = False
+		self._serialConnection = None
+
+	# Attempts to connect to the Arduino
+	def connectToArduino(self):
+		#============================================================================================
+		self._isConnected = True
+		return
+		#============================================================================================
+		for i in range(100):
+			try:
+				self._serialConnection = serial.Serial('/dev/ttyACM' + str(i), 115200)
+				time.sleep(2)
+				self._isConnected = True
+			except:
+				pass
+		self._isConnected = False
+
+	# Method to start the picture running through
+	def begin(self):
 		# Start a thread that continously reads in the line data
 		self._readerThread = threading.Thread(target=self._read)
 		self._readerThread.start()
 
-		# Set a default maximum frame rate
-		self.maxFPS = maxFPS
-
-	# Method to start the picture running through
-	def begin(self):
 		self._outputStream("CLEAR")
 
 	# Method to print a line out to the output stream
 	def printLine(self, line):
 		self._outputStream(line)
+
+	# Write lines to Arduino
+	def displayLine(self, line):
+		if self._isConnected:
+			lineString = ""
+			for val in line.data:
+				lineString += chr(val[0]//2)
+				lineString += chr(val[1]//2)
+				lineString += chr(val[2]//2)
+			ser.write(lineString.encode('ascii'))
 
 	# Method to get the next line from the buffer
 	def getNextLine(self):
@@ -49,7 +78,7 @@ class ImageStream:
 			if len(self._lines) == 0:
 				return ImageLine()
 
-			# If there is only one line, return it
+			# If there is only one line, return itlineString += chr(val[0]).encode('ascii')
 			elif len(self._lines) == 1:
 				return self._lines[0].copy()
 
@@ -123,6 +152,7 @@ class ImageStream:
 			except EOFError:
 				# Stop reading stuff
 				self._isStreamEnded = True
+
 
 class ImageLine:
 	def __init__(self, data=""):
