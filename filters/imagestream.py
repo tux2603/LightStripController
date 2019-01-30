@@ -34,6 +34,7 @@ class ImageStream:
 		for i in range(100):
 			try:
 				self._serialConnection = serial.Serial('/dev/ttyACM' + str(i), 115200)
+				print('Connected to ttyACM' + str(i))
 				time.sleep(2)
 				self._isConnected = True
 			except:
