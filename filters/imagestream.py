@@ -31,10 +31,6 @@ class ImageStream:
 
 	# Attempts to connect to the Arduino
 	def connectToArduino(self):
-		#============================================================================================
-		self._isConnected = True
-		return
-		#============================================================================================
 		for i in range(100):
 			try:
 				self._serialConnection = serial.Serial('/dev/ttyACM' + str(i), 115200)
