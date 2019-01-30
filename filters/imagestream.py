@@ -64,7 +64,7 @@ class ImageStream:
 				lineString += chr(val[0]//2)
 				lineString += chr(val[1]//2)
 				lineString += chr(val[2]//2)
-			ser.write(lineString.encode('ascii'))
+			self._serialConnection.write(lineString.encode('ascii'))
 
 	# Method to get the next line from the buffer
 	def getNextLine(self):
