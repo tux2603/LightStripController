@@ -58,10 +58,10 @@ class ImageStream:
 		if self._isConnected:
 			lineString = ""
 			for val in line.data:
-				lineString += chr(val[0]//2)
-				lineString += chr(val[1]//2)
-				lineString += chr(val[2]//2)
-			print.write(lineString.encode('ascii'))
+				lineString += str(chr(val[0]//2))
+				lineString += str(chr(val[1]//2))
+				lineString += str(chr(val[2]//2))
+			print(lineString.encode('ascii'))
 
 	# Method to get the next line from the buffer
 	def getNextLine(self):
