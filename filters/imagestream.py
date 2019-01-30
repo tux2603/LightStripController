@@ -34,9 +34,9 @@ class ImageStream:
 		for i in range(100):
 			try:
 				self._serialConnection = serial.Serial('/dev/ttyACM' + str(i), 115200)
-				print('Connected to ttyACM' + str(i))
 				time.sleep(2)
 				self._isConnected = True
+				print('Connected to ttyACM' + str(i))
 			except:
 				pass
 		self._isConnected = False
@@ -55,13 +55,13 @@ class ImageStream:
 
 	# Write lines to Arduino
 	def displayLine(self, line):
-		if self._isConnected:
+		if self._isConnected or True:
 			lineString = ""
 			for val in line.data:
 				lineString += str(chr(val[0]//2))
 				lineString += str(chr(val[1]//2))
 				lineString += str(chr(val[2]//2))
-			print(lineString.encode('ascii'))
+			print(lineString)
 
 	# Method to get the next line from the buffer
 	def getNextLine(self):
