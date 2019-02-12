@@ -72,7 +72,7 @@ void loop() {
       //Since the blue pixel was just read, all of the colors channels are now set,
       //  so push them to the current pixel on the LED strips
       if (currentPxl < PIXELS_PER_STRIP) {
-        left_leds[PIXELS_PER_STRIP - (currentPxl + 1)] = CRGB(r, g, b);
+        left_leds[PIXELS_PER_STRIP - (currentPxl + 1)] = CRGB(r, g<<2, b);
       }
 
       //If writing to the right strip, the pixel indexes are offset, so correct for that
