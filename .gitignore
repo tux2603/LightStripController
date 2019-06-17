@@ -3,3 +3,5 @@
 imageQueue/
 
 images/\.directory
+
+\.vscode/
