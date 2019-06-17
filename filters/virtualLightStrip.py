@@ -25,12 +25,12 @@ def main():
 
 
         screen.fill((000, 000, 000))
-        	
+        
         line = stream.getNextLine()
         
         for i in range(300):
-        	pygame.draw.circle(screen, line.data[i], (i*5+3, 3), 2, 2)
-        	
+            pygame.draw.circle(screen, line.data[i], (i*5+3, 3), 2, 2)
+        
         pygame.display.update()
 
 if __name__ == '__main__':
