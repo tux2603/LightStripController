@@ -3,21 +3,18 @@
 import glob
 import threading
 import time
-
 import serial
+
 from kivy.app import App
 from kivy.core.window import Window
 from kivy.uix.gridlayout import GridLayout
 from kivy.uix.image import Image as UIImage
 from kivy.uix.pagelayout import PageLayout
-from kivy.uix.button import Button
-from kivy.properties import NumericProperty
 from PIL import Image
 
 
 image_path = 'images/test.png'
 running = True
-TARGET_FRAMERATE = 60
 
 
 class ClickableImage(UIImage):
@@ -40,17 +37,12 @@ class ImageGrid(GridLayout):
 
 
 class ImagePages(PageLayout):
-    def __init__(self, cols=3, rows=2, directory='images', **kwargs):
+    def __init__(self, cols=3, rows=3, directory='images', **kwargs):
         super(ImagePages, self).__init__(**kwargs)
         self.cols = cols
         self.rows = rows
         self.image_directory = directory
         self.images = glob.glob(f'{self.image_directory}/*.png')
-
-        # for i in range(0, len(self.images), rows * cols):
-        #     page_images = self.images[i:i + self.rows * self.cols]
-        #     grid = ImageGrid(cols=self.col, images=page_images)
-        #     self.add_widget(grid)
 
         for i in range(0, len(self.images), rows * cols):
             page_images = self.images[i:i + self.rows * self.cols]
@@ -106,17 +98,10 @@ def render_image():
                     print(f'NEW STUFF! {current_image_path}')
                     break
 
-                t0 = time.time()
-                # row_data = []  # addr, addr, r, g, b
-
                 for x in range(image.width):
                     pixel_color = image.getpixel((x, y))
                     pixel_data = bytes([x % 255, x // 255, pixel_color[0], pixel_color[1], pixel_color[2]])
-                    # row_data.append(pixel_data)
                     ser.write(pixel_data)
-
-                # ser.write(row_data)
-                # time.sleep(0.05)
 
     ser.close()
 
