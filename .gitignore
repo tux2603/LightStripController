@@ -1,7 +1,2 @@
-
-.spyproject/
 imageQueue/
-
-images/\.directory
-
-\.vscode/
+.vscode/
