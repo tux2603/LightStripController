@@ -13,7 +13,7 @@ from kivy.uix.pagelayout import PageLayout
 from PIL import Image
 
 
-image_path = 'images/test.png'
+image_path = 'images/purpleTwinkles.png'
 running = True
 
 
